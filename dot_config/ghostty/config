@@ -1,0 +1,19 @@
+theme = base16
+
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+font-style = "Medium"
+
+mouse-hide-while-typing = true
+
+background-opacity = 0.85
+
+cursor-style = block
+cursor-style-blink = true
+shell-integration-features = no-cursor
+
+window-padding-x = 10
+window-padding-y = 6
+window-padding-balance = true
+window-decoration = server
+gtk-titlebar = false

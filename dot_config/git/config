@@ -1,0 +1,62 @@
+[user]
+	name = Max Lister
+	email = maxlister77@gmail.com
+
+[core]
+	autoclrf = input
+	compression = 9
+	fsync = none
+	whitespace = error
+	pager = delta
+
+[blame]
+	coloring = highlightRecent
+	date = relative
+
+[delta]
+	navigate = truee
+	dark = true
+
+[diff]
+	context = 3
+	renames = copies
+	interHunkContext = 10
+
+[init]
+	defaultBranch = main
+
+[interactive]
+	diffFilter = delta --color-only
+
+[log]
+	abbrevCommit= true
+	graphColors = blue,yellow,cyan,magenta,green,red
+
+[merge]
+	conflictStyle = zdiff3
+
+[status]
+	branch = true
+	short = true
+	showStash = true
+	showUntrackedFiles = all
+
+[pager]
+	branch = false
+	diff = delta
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+	default = current
+	followTags = true
+
+[rebase]
+	autoStash = true
+	autoSquash = true
+[rerere]
+	enabled = true
+[credential]
+	helper = cache

@@ -1,0 +1,144 @@
+(defwindow bar
+  :monitor "DP-2"
+  :geometry (geometry 
+    :x "0px" 
+    :y "0px" 
+    :width "100%" 
+    :height "48px" 
+    :anchor "bottom center")
+  :stacking "fg"
+  :exclusive true
+  :vexpand "false"
+  :hexpand "false"
+  
+  (bar)
+)
+
+(defwindow calendar
+    :monitor "DP-2"
+    :geometry (geometry :x "69%" :y "82%" :width "300px" :height "60px")
+    (custom_calendar)
+)
+
+(defwidget time []
+ (eventbox :orientation "h"
+  :onclick "scripts/calendar.fish"
+  :class "time"
+  :halign "end"
+  (label :text time)
+ )
+ )
+(defpoll time :interval "5s" "date '+%H : %M'")
+
+(defwidget custom_calendar []
+    (box :orientation "h" :class "calendar-outer"
+        (box :orientation "h" :class "calendar-inner"
+            (calendar :class "calendar" :day calendar_day :month calendar_month :year calendar_year)
+        )
+    )
+)
+(defpoll calendar_day :interval "12h" "date '+%d'")
+(defpoll calendar_month :interval "12h" "date '+%M'")
+(defpoll calendar_year :interval "12h" "date '+%Y'")
+
+
+(deflisten tag_status :initial '[]'
+    "scripts/active-tags.fish"
+)
+
+(defwidget launcher []
+    (box :orientation "h" :space-evenly "false"
+        (button :class "launcher_icon"
+                :onclick "scripts/launcher.fish" "")
+    )
+)
+
+(defwidget tag [id symbol]
+    (eventbox
+        :onclick "fish -c 'riverctl set-focused-tags (math '2^${id - 1}')'"
+        (box :class `tag ${tag_status[id]?.["focused"] == "true" ? "focused-tag" : ""} ${tag_status[id]?.["occupied"] == "true" ? "occupied-tag" : ""} ${tag_status[id] == "null" ? "empty-tag" : ""}`
+            {symbol}
+        )
+    )
+)
+
+(defvar tags "[1,2,3,4,5,6,7,8]")
+(defvar tagSymbols `["", "", "", "", "", "", "", ""]`)
+
+(defwidget workspaces []
+    (box :class "workspaces" :orientation "h" :space-evenly "true" :spacing 3 :valign "center" :halign "start"
+        (for tagnum in tags
+            (tag
+                :id tagnum
+                :symbol `${tagSymbols[tagnum - 1]}`
+            )
+        )
+    )
+)
+
+(defwidget wifi []
+    (box :orientation "h" :tooltip wifi-name
+        (button :onclick "scripts/wifi-config.fish" :class "wifi-icon" wifi-icon)
+    )
+)
+
+(defpoll wifi-icon :interval "15s" "scripts/wifi.fish icon")
+(defpoll wifi-name :interval "15s" "scripts/wifi.fish name")
+
+(defwidget volume []
+	(eventbox :onhover "eww update volume=true" 		
+			  :onhoverlost "eww update volume=false"
+	(box      :orientation "h" 	  
+			  :space-evenly "false" 
+			  :spacing "4"
+        (revealer :transition "slideleft" 
+                  :reveal volume        
+                  :duration "550ms"
+            (scale :class "volbar" 	  
+                   :value current-volume 
+                   :orientation "h"      
+                   :flipped true 
+                   :tooltip "Volume: ${current-volume}%" 
+                   :max 101 
+                   :min 0 
+                   :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%" ))
+            (button :onclick "scripts/popup audio" :class "volume-icon" ""))))
+
+(defpoll current-volume :interval "2s" "scripts/volume.fish")
+(defvar volume false)
+
+
+(defwidget control []
+    (box :orientation "h" :space-evenly "false" :spacing 10 :class "control"
+        (wifi)
+        (volume)
+    )
+)
+
+(defwidget left []
+ (box :orientation "h" :space-evenly "false"
+    (launcher)
+    (workspaces)
+ )
+)
+
+
+(defwidget right []
+ (box :orientation "h" :space-evenly "false"
+  (time)
+ )
+)
+
+(defwidget end []
+    (box :orientation "h" :space-evenly "false" :spacing 5 :halign "end"
+       (control)
+       (right)
+    )
+)
+
+(defwidget bar []
+ (box :class "bar" :orientation "h" :vexpand "false" :hexpand "false"
+  (left)
+  (end)
+ )
+)

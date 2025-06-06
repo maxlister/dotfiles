@@ -1,0 +1,135 @@
+* {
+  all: unset;
+}
+
+$background: #1d2021;
+$foreground: #d5c4a1;
+
+$black: #504945;
+$white: #fbf1c7;
+$red: #fb4934;
+$orange: #fe8019;
+$yellow: #fabd2f;
+$green: #b8bb26;
+$cyan: #8ec07c;
+$blue: #83a598;
+$purple: #d3869b;
+
+.bar {
+  background-color: $background;
+  padding: .3rem;
+  border: 1px solid $foreground;
+  border-radius: 2px;
+}
+
+.workspaces {
+  font-family: "Font Awesome 6 Brands";
+  font-size: 1.2rem;
+  padding: 0.4rem 0rem;
+  background-color: $black;
+  border-radius: 4px;
+}
+
+.control {
+  padding: .5rem .8rem .5rem .8rem;
+  font-family: "IosevkaTerm Nerd Font";
+  font-size: 1.5rem;
+  background-color: $black;
+  border-radius: 4px;
+}
+
+.wifi-icon {
+  margin-right: 0.2rem;
+  color: $purple;
+}
+
+.volume-icon {
+  margin: 0rem 0.6rem 0rem 0.2rem;
+  color: $green;
+}
+
+.time {
+  font-weight: bold;
+  font-size: 1.1rem;
+  background-color: $black;
+  color: $white;
+  border-radius: 4px;
+  padding: .2rem .4rem .2rem .4rem;
+}
+
+.launcher_icon {
+  color: $cyan;
+  font-family: "Font Awesome 6 Free";
+  font-size: 1.6rem;
+  padding: 0.2rem 0.4rem;
+  margin: 0rem 0.6rem 0rem 0rem;
+}
+
+scale trough {
+  all: unset;
+  background-color: $background;
+  border-radius: 4px;
+  min-height: 10px;
+  min-width: 100px;
+  margin: 0rem 0.3rem 0rem 0.3rem;
+}
+
+.volbar trough highlight {
+  background-color: $green;
+  border-radius: 4px;
+}
+
+.tag {
+  padding: 0.2rem 0.4rem;
+}
+
+.occupied-tag {
+  color: $white;
+}
+
+.focused-tag {
+  font-weight: bold;
+  color: $yellow;
+  background-color: $black;
+}
+
+.empty-tag {
+  color: $blue;
+}
+
+.calendar-outer {
+  background-color: $background;
+  border: 1px solid $foreground;
+  font-weight: bold;
+
+  .calendar-inner {
+    padding: 1rem 1rem .2rem;
+
+    .calendar {
+      &.highlight {
+        padding: 10rem;
+      }
+
+      padding: .8rem .25rem 0rem;
+      margin-left: 10px;
+    }
+  }
+}
+
+calendar:selected {
+  color: $yellow;
+}
+
+calendar.button {
+  color: $purple;
+}
+
+calendar.highlight {
+  color: $purple;
+  font-weight: bold;
+}
+
+calendarindeterminate {
+  color: $background;
+}
+
